@@ -20,7 +20,7 @@ type DifferentialRevision struct {
 	ActiveDiffPHID string              `json:"activeDiffPHID"`
 	Diffs          []string            `json:"diffs"`
 	Commits        []string            `json:"commits"`
-	Reviewers      []string            `json:"reviewers"`
+	Reviewers      map[string]string   `json:"reviewers"`
 	CCs            []string            `json:"ccs"`
 	Hashes         [][]string          `json:"hashes"`
 	Auxiliary      map[string][]string `json:"auxiliary"`
