@@ -8,7 +8,7 @@ type RepositoryQueryRequest struct {
 	VCSTypes   []string `json:"vcsTypes"`
 	RemoteURIs []string `json:"remoteURIs"`
 	UUIDs      []string `json:"uuids"`
-	Order      string   `json:"order"`
+	Order      *string  `json:"order"`
 	Before     string   `json:"before"`
 	After      string   `json:"after"`
 	Limit      uint64   `json:"limit"`
