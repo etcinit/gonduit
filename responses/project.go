@@ -8,3 +8,6 @@ type ProjectQueryResponse struct {
 	SlugMap map[string]string           `json:"sligMap"`
 	Cursor  entities.Cursor             `json:"cursor"`
 }
+
+// ProjectCreateResponse represents a response from calling project.create.
+type ProjectCreateResponse entities.Project

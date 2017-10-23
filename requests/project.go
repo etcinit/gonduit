@@ -16,3 +16,11 @@ type ProjectQueryRequest struct {
 	Offset  uint64                  `json:"offset"`
 	Request
 }
+
+// ProjectCreateRequest represents a request to project.create.
+type ProjectCreateRequest struct {
+	Name          string   `json:"name"`
+	MemberPHIDs   []string `json:"member_phids,omitempty"`
+	MemberAliases []string `json:"member_aliases,omitempty"`
+	Request
+}

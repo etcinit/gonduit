@@ -17,3 +17,16 @@ func (c *Conn) ProjectQuery(
 
 	return &res, nil
 }
+
+// ProjectCreate performs a call to project.create.
+func (c *Conn) ProjectCreate(
+	req requests.ProjectCreateRequest,
+) (*responses.ProjectCreateResponse, error) {
+	var res responses.ProjectCreateResponse
+
+	if err := c.Call("project.create", &req, &res); err != nil {
+		return nil, err
+	}
+
+	return &res, nil
+}
