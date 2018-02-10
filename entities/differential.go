@@ -26,3 +26,34 @@ type DifferentialRevision struct {
 	Auxiliary      map[string][]string `json:"auxiliary"`
 	RepositoryPHID string              `json:"repositoryPHID"`
 }
+
+// DifferentialDiff represents a specific diff within a Differential revision.
+// A new diff is created every time you update a differential revision (that's
+// what arc diff does duh).
+//
+// NOTE: Two fields are missing from this struct:
+//
+// - Changes (changes) is a list of a fairly complex data-structure with all
+//   hunks contained in this diff along with some dynamically typed metadata;
+// - Properties (properties) is another dynamically typed field which will be
+//   an empty list on a closed diff (as far as I can tell) or a fairly complex
+//   data-structure containing more metadata about the diff (info about the
+//   local commits and about arc's interaction with the staging area if you
+//   repository has one set up).
+type DifferentialDiff struct {
+	ID                        string             `json:"id"`
+	RevisionID                string             `json:"revisionID"`
+	DateCreated               util.UnixTimestamp `json:"dateCreated"`
+	DateModified              util.UnixTimestamp `json:"dateModified"`
+	SourceControlBaseRevision string             `json:"sourceControlBaseRevision"`
+	SourceControlPath         string             `json:"sourceControlPath"`
+	SourceControlSystem       string             `json:"sourceControlSystem"`
+	Branch                    string             `json:"branch"`
+	Bookmark                  string             `json:"bookmark"`
+	CreationMethod            string             `json:"creationMethod"`
+	Description               string             `json:"description"`
+	UnitStatus                string             `json:"unitStatus"`
+	LintStatus                string             `json:"lintStatus"`
+	AuthorName                string             `json:"authorName"`
+	AuthorEmail               string             `json:"authorEmail"`
+}
