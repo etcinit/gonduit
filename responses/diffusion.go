@@ -10,7 +10,11 @@ import (
 type DiffusionQueryCommitsResponse struct {
 	Data          map[string]entities.DiffusionCommit `json:"data"`
 	IdentifierMap map[string]string                   `json:"identifierMap"`
-	Cursor        entities.Cursor                     `json:"cursor"`
+	Cursor        struct {
+		Limit  uint64 `json:"limit"`
+		After  string `json:"after"`
+		Before string `json:"before"`
+	} `json:"cursor"`
 }
 
 // DiffusionRepositorySearchResponse contains fields that are in server
