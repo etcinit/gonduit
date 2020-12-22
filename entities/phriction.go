@@ -1,6 +1,6 @@
 package entities
 
-import "github.com/etcinit/gonduit/util"
+import "github.com/uber/gonduit/util"
 
 // PhrictionDocument represents a document in Phriction wiki.
 type PhrictionDocument struct {

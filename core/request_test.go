@@ -7,9 +7,8 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/etcinit/gonduit/requests"
-	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+	"github.com/uber/gonduit/requests"
 )
 
 func TestMakeRequest(t *testing.T) {
@@ -110,15 +109,11 @@ func TestPrepareForm_withAPIToken(t *testing.T) {
 		APIToken: "hello-world-hello-world",
 	})
 
-	jsonBody, _ := json.Marshal(gin.H{
-		"__conduit__": gin.H{
-			"token": "hello-world-hello-world",
-		},
-	})
+	jsonBody := `{"__conduit__":{"token":"hello-world-hello-world"}}`
 
 	assert.Nil(t, err)
 	assert.Equal(t, "json", form.Get("output"))
-	assert.Equal(t, string(jsonBody), form.Get("params"))
+	assert.Equal(t, jsonBody, form.Get("params"))
 }
 
 func TestPrepareForm_withSessionKey(t *testing.T) {
@@ -126,11 +121,7 @@ func TestPrepareForm_withSessionKey(t *testing.T) {
 		SessionKey: "hello-world-hello-world",
 	})
 
-	jsonBody, _ := json.Marshal(gin.H{
-		"__conduit__": gin.H{
-			"sessionKey": "hello-world-hello-world",
-		},
-	})
+	jsonBody := `{"__conduit__":{"sessionKey":"hello-world-hello-world"}}`
 
 	assert.Nil(t, err)
 	assert.Equal(t, "json", form.Get("output"))

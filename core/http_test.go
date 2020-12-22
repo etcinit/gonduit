@@ -17,4 +17,10 @@ func TestMakeHTTPClient(t *testing.T) {
 
 	assert.NotNil(t, client)
 	assert.NotNil(t, client2)
+
+	// Test that a provided client is used instead of a new one
+	// with default settings.
+	assert.Equal(t, client, makeHTTPClient(&ClientOptions{
+		Client: client,
+	}))
 }

@@ -1,9 +1,11 @@
 package gonduit
 
 import (
-	"github.com/etcinit/gonduit/core"
-	"github.com/etcinit/gonduit/responses"
-	"github.com/etcinit/gonduit/util"
+	"context"
+
+	"github.com/uber/gonduit/core"
+	"github.com/uber/gonduit/responses"
+	"github.com/uber/gonduit/util"
 )
 
 // A Dialer contains options for connecting to an address.
@@ -15,12 +17,19 @@ type Dialer struct {
 
 // Dial connects to conduit and confirms the API capabilities for future calls.
 func Dial(host string, options *core.ClientOptions) (*Conn, error) {
+	ctx := context.Background()
+	return DialContext(ctx, host, options)
+}
+
+// DialContext connects to conduit and confirms the API capabilities for future calls,
+// passing the given context through.
+func DialContext(ctx context.Context, host string, options *core.ClientOptions) (*Conn, error) {
 	var d Dialer
 
 	d.ClientName = "gonduit"
 	d.ClientVersion = "1"
 
-	return d.Dial(host, options)
+	return d.DialContext(ctx, host, options)
 }
 
 // Dial connects to conduit and confirms the API capabilities for future calls.
@@ -28,10 +37,22 @@ func (d *Dialer) Dial(
 	host string,
 	options *core.ClientOptions,
 ) (*Conn, error) {
+	ctx := context.Background()
+	return d.DialContext(ctx, host, options)
+}
+
+// DialContext connects to conduit and confirms the API capabilities for future calls,
+// passing the given context through.
+func (d *Dialer) DialContext(
+	ctx context.Context,
+	host string,
+	options *core.ClientOptions,
+) (*Conn, error) {
 	var res responses.ConduitCapabilitiesResponse
 
 	// We use conduit.connect for authentication and it establishes a session.
-	err := core.PerformCall(
+	err := core.PerformCallContext(
+		ctx,
 		core.GetEndpointURI(host, "conduit.getcapabilities"),
 		nil,
 		&res,

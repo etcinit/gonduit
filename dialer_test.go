@@ -3,11 +3,10 @@ package gonduit
 import (
 	"testing"
 
-	"github.com/etcinit/gonduit/core"
-	"github.com/etcinit/gonduit/responses"
-	"github.com/etcinit/gonduit/test/server"
-	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+	"github.com/uber/gonduit/core"
+	"github.com/uber/gonduit/responses"
+	"github.com/uber/gonduit/test/server"
 )
 
 func TestDial(t *testing.T) {
@@ -27,9 +26,9 @@ func TestDial_withInvalid(t *testing.T) {
 	s := server.New()
 	defer s.Close()
 
-	s.RegisterMethod("conduit.getcapabilities", 200, gin.H{
-		"fake": "fake",
-	})
+	s.RegisterMethod("conduit.getcapabilities", 200, server.ResponseFromJSON(`{
+		"fake": "fake"
+	}`))
 
 	_, err := Dial(s.GetURL(), &core.ClientOptions{
 		APIToken: "some-token",

@@ -1,4 +1,4 @@
-# gonduit [![GoDoc](https://godoc.org/github.com/etcinit/gonduit?status.svg)](https://godoc.org/github.com/etcinit/gonduit)
+# gonduit [![Build Status](https://travis-ci.com/uber/gonduit.svg?branch=master)](https://travis-ci.com/uber/gonduit) [![GoDoc](https://godoc.org/github.com/uber/gonduit?status.svg)](https://godoc.org/github.com/uber/gonduit)
 
 A Go client for interacting with [Phabricator](http://phabricator.org) via the [Conduit](https://secure.phabricator.com/book/phabdev/article/conduit/) API.
 
@@ -9,7 +9,7 @@ A Go client for interacting with [Phabricator](http://phabricator.org) via the [
 A simple `go get` should do it:
 
 ```
-go get github.com/etcinit/gonduit
+go get github.com/uber/gonduit
 ```
 
 For reproducible builds, you can also use [Glide](https://glide.sh/).
@@ -115,13 +115,21 @@ for more information on how to use them.
 
 - conduit.connect
 - conduit.query
+- differential.getcommitmessage
+- differential.getcommitpaths
 - differential.query
+- differential.revision.search
 - diffusion.querycommit
+- diffusion.repository.search
+- diffusion.filecontentquery
+- edge.search
 - file.download
+- harbormaster.buildable.search
 - macro.creatememe
-- maniphest.query
 - maniphest.createtask
 - maniphest.gettasktransactions
+- maniphest.query
+- maniphest.search
 - paste.create
 - paste.query
 - phid.lookup

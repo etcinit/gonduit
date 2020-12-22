@@ -1,9 +1,9 @@
 package gonduit
 
 import (
-	"github.com/etcinit/gonduit/entities"
-	"github.com/etcinit/gonduit/requests"
-	"github.com/etcinit/gonduit/responses"
+	"github.com/uber/gonduit/entities"
+	"github.com/uber/gonduit/requests"
+	"github.com/uber/gonduit/responses"
 )
 
 // ManiphestQuery performs a call to maniphest.query.
@@ -38,6 +38,19 @@ func (c *Conn) ManiphestGetTaskTransactions(
 	var res responses.ManiphestGetTaskTransactionsResponse
 
 	if err := c.Call("maniphest.gettasktransactions", &req, &res); err != nil {
+		return nil, err
+	}
+
+	return &res, nil
+}
+
+// ManiphestSearch performs a call to maniphest.search.
+func (c *Conn) ManiphestSearch(
+	req requests.ManiphestSearchRequest,
+) (*responses.ManiphestSearchResponse, error) {
+	var res responses.ManiphestSearchResponse
+
+	if err := c.Call("maniphest.search", &req, &res); err != nil {
 		return nil, err
 	}
 

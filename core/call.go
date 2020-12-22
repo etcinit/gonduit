@@ -1,9 +1,11 @@
 package core
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"strconv"
 	"strings"
 
 	"github.com/karlseguin/typed"
@@ -14,12 +16,13 @@ func GetEndpointURI(host string, method string) string {
 	return fmt.Sprintf("%s/api/%s", strings.TrimSuffix(host, "/"), method)
 }
 
-// PerformCall performs a call to the Conduit API with the provided URL and
+// PerformCallContext performs a call to the Conduit API with the context, URL and
 // parameters. The response will be unmarshaled into the passed result struct.
 //
 // If an error is encountered, it will be unmarshalled into a ConduitError
 // struct.
-func PerformCall(
+func PerformCallContext(
+	ctx context.Context,
 	endpointURL string,
 	params interface{},
 	result interface{},
@@ -32,7 +35,7 @@ func PerformCall(
 
 	client := makeHTTPClient(options)
 
-	resp, err := client.Do(req)
+	resp, err := client.Do(req.WithContext(ctx))
 	if err != nil {
 		return err
 	}
@@ -45,7 +48,10 @@ func PerformCall(
 
 	jsonBody, err := typed.Json(body)
 	if err != nil {
-		return err
+		return &ConduitError{
+			code: strconv.Itoa(resp.StatusCode),
+			info: string(body),
+		}
 	}
 
 	// parse any error conduit returned first
@@ -81,4 +87,19 @@ func PerformCall(
 	}
 
 	return nil
+}
+
+// PerformCall performs a call to the Conduit API with the provided URL and
+// parameters. The response will be unmarshaled into the passed result struct.
+//
+// If an error is encountered, it will be unmarshalled into a ConduitError
+// struct.
+func PerformCall(
+	endpointURL string,
+	params interface{},
+	result interface{},
+	options *ClientOptions,
+) error {
+	ctx := context.Background()
+	return PerformCallContext(ctx, endpointURL, params, result, options)
 }
