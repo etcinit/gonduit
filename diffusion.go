@@ -35,3 +35,18 @@ func (c *Conn) DiffusionRepositorySearch(
 	}
 	return &resp, nil
 }
+
+// DiffusionFileContentQueryMethod is the method name on API.
+const DiffusionFileContentQueryMethod = "diffusion.filecontentquery"
+
+// DiffusionRepositorySearch calls "diffusion.repository.search" Conduit API
+// method.
+func (c *Conn) DiffusionFileContentQuery(
+	req requests.DiffusionFileContentQueryRequest,
+) (*responses.DiffusionFileContentQueryResponse, error) {
+	var resp responses.DiffusionFileContentQueryResponse
+	if err := c.Call(DiffusionFileContentQueryMethod, &req, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}

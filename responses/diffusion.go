@@ -80,3 +80,11 @@ type RepositoryURI struct {
 	Effective  string `json:"effective"`
 	Normalized string `json:"normalized"`
 }
+
+// DiffusionFileContentQueryResponse represents a response of the
+// response to diffusion.filecontentquery.
+type DiffusionFileContentQueryResponse struct {
+	TooSlow  bool   `json:"tooSlow"`
+	TooHuge  bool   `json:"tooHuge"`
+	FilePHID string `json:"filePHID"`
+}

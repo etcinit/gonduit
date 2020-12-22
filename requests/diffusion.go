@@ -62,3 +62,13 @@ type DiffusionRepositorySearchAttachments struct {
 	// Projects requests to get information about projects.
 	Projects bool `json:"projects,omitempty"`
 }
+
+// DiffusionFileContentQueryRequest represents a request to the
+// diffusion.filecontentquery call.
+type DiffusionFileContentQueryRequest struct {
+	Path       string `json:"path"`
+	Commit     string `json:"commit"`
+	Repository string `json:"repository"`
+	Branch     string `json:"branch"`
+	Request
+}
