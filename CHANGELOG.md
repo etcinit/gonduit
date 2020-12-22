@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.0] - 2020-12-22
+### Added
+- Support for `diffusion.filecontentquery` method.
+
 ## [0.12.0] - 2020-12-10
 ### Added
 - Support for `project.search` method.
